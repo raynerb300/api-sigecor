@@ -16,6 +16,11 @@ export const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    tempory_password: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+    },
     names: {
         type: DataTypes.STRING,
         allowNull: false
