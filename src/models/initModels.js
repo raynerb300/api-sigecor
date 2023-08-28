@@ -1,4 +1,4 @@
-import db from '../../config/Connection.js';
+import sequelize from '../../config/Connection.js';
 import './models/Area.js';
 import './models/Audit.js';
 import './models/Document.js';
@@ -15,7 +15,7 @@ import './models/TypeCorrespondence.js';
 import './models/User.js';
 import './models/Correspondence.js';
 
-const initModels = db.sync({ force : true })
+const initModels = sequelize.sync({ force : true })
     .then(() => {
         console.log('Tablas sincronizadas');
     }

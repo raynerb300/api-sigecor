@@ -1,7 +1,7 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 
-export const PermissionRol = db.define('permission_rol', {}, {
+export const PermissionRol = sequelize.define('permission_rol', {}, {
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_at',

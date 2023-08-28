@@ -1,8 +1,8 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { Permission } from './Permission.js';
 
-export const Rol = db.define('rol', {
+export const Rol = sequelize.define('rol', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

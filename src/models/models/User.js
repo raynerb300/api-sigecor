@@ -1,7 +1,7 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 
-export const User = db.define('user', {
+export const User = sequelize.define('user', {
     id: {
         type: DataTypes.UUID,
         primaryKey: true,

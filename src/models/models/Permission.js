@@ -1,8 +1,8 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { Module } from './Module.js';
 
-export const Permission = db.define('permission', {
+export const Permission = sequelize.define('permission', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
