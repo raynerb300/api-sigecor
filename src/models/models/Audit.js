@@ -1,8 +1,8 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { User } from './User.js';
 
-export const Audit = db.define('audit', {
+export const Audit = sequelize.define('audit', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

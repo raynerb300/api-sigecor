@@ -1,4 +1,4 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { State } from './State.js';
 import { TypeCorrespondence } from './TypeCorrespondence.js';
@@ -7,7 +7,7 @@ import { ExternalAgent } from './ExternalAgent.js';
 import { Priority } from './Priority.js';
 import { Document } from './Document.js';
 
-export const Correspondence = db.define('correspondence', {
+export const Correspondence = sequelize.define('correspondence', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

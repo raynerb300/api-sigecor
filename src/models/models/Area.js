@@ -1,8 +1,8 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { User } from './User.js';
 
-export const Area = db.define('area', {
+export const Area = sequelize.define('area', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

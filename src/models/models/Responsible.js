@@ -1,7 +1,7 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 
-export const Responsible = db.define('responsible',{
+export const Responsible = sequelize.define('responsible',{
     end_date: {
         type: DataTypes.DATE,
         allowNull: true

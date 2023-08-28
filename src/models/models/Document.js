@@ -1,7 +1,7 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 
-export const Document = db.define('document', {
+export const Document = sequelize.define('document', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

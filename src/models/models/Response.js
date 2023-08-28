@@ -1,7 +1,7 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 
-export const Response = db.define('response', {}, {
+export const Response = sequelize.define('response', {}, {
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_at',

@@ -1,8 +1,8 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { Area } from './Area.js';
 
-export const TypeCorrespondence = db.define('type_correspondence', {
+export const TypeCorrespondence = sequelize.define('type_correspondence', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

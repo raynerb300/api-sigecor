@@ -1,7 +1,7 @@
-import db from '../../../config/Connection.js';
+import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 
-export const ExternalAgent = db.define('external_agent', {
+export const ExternalAgent = sequelize.define('external_agent', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
