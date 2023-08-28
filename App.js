@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import specs from './config/Swagger.js';
 import router from './src/routes/initRoutes.js'
-
+import initModels from './src/models/initModels.js'
 const app = express();
 
 // Se cargan las variables de entorno dependiendo del entorno
@@ -22,6 +22,9 @@ app.use("/api/sigecor", router);
 
 // Configuraciones del swagger
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs, { parameterLimit: 100000 }));
+
+// Crea los modelos en la base de datos
+await initModels;
 
 app.listen(process.env.PORT, async () => {
     console.log('SERVIDOR CORRIENDO EN EL PUERTO: ' + process.env.PORT);
