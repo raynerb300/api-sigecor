@@ -1,6 +1,5 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
-import { Permission } from './Permission.js';
 import { User } from './User.js';
 
 export const Rol = sequelize.define('rol', {
@@ -34,25 +33,9 @@ export const Rol = sequelize.define('rol', {
     }
 });
 
-Rol.belongsToMany(Permission, {
-    through: 'permission_rol',
-    foreignKey: {
-        allowNull: false,
-        name: 'rol_id'
-    }
-});
-
-Permission.belongsToMany(Rol, {
-    through: 'permission_rol',
-    foreignKey: {
-        allowNull: false,
-        name: 'permission_id'
-    }
-})
-
 Rol.hasMany(User, {
     foreignKey: {
         name: 'rol_id',
         allowNull: false
     }
-})
+});
