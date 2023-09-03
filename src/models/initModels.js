@@ -15,7 +15,7 @@ import './models/TypeCorrespondence.js';
 import './models/User.js';
 import './models/Correspondence.js';
 
-const initModels = sequelize.sync({ force : true })
+const initModels = sequelize.sync({ force : false })
     .then(() => {
         console.log('Tablas sincronizadas');
     }

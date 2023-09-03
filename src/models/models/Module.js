@@ -1,5 +1,6 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
+import { Permission } from './Permission.js';
 
 export const Module = sequelize.define('module', {
     id: {
@@ -25,5 +26,12 @@ export const Module = sequelize.define('module', {
     defaultValues: {
         createdAt: DataTypes.NOW,
         updatedAt: DataTypes.NOW
+    }
+});
+
+Module.hasMany(Permission, {
+    foreignKey: {
+        name: 'module_id',
+        allowNull: null
     }
 });
