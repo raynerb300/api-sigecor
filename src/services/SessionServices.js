@@ -62,7 +62,10 @@ export async function changePassword(data){
 
     password = CryptoJS.SHA256(password).toString();
 
-    const user = await User.update({ password: password, tempory_password: false }, {
+    const user = await User.update({ 
+        password: password, 
+        tempory_password: false 
+    }, {
         where: {
             username: username
         },
