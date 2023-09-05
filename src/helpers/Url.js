@@ -3,5 +3,13 @@ export const URL = {
     // Rutas session
     login: '/login',
     logout: '/logout/:id',
-    changePassword: '/change-password'
+
+    // Rutas User
+    getUsers: '/users',
+    getUser: '/users/:id',
+    createUser: '/users',
+    updateUser: '/users/:id',
+    resetPasswordUser: '/users/:id/reset-password',
+    changePassword: '/users/:id/change-password'
+
 }
