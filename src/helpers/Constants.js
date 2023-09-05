@@ -4,9 +4,14 @@ export const STATUS = (element) => {
         badRequest: 400,
         userOrPasswordInvalid: 401,
         unauthorized: 401,
+        forbidden: 403,
         userInactive: 403,
         notFound: 404,
+        rolNotFound: 404,
         userNotFound: 404,
+        alreadyExistUsername: 409,
+        alreadyExistEmail: 409,
+        alreadyExistDocument: 409,
         serverError: 500
     }
     return codes[element] ?? STATUS('serverError');
@@ -18,9 +23,14 @@ export const MESSAGE = (element) => {
         badRequest: 'Sintaxis de solicitud incorrecta',
         userOrPasswordInvalid: 'Usuario o contraseña invalida.',
         unauthorized: 'Sesión expirada.',
+        forbidden: 'Acceso restringido.',
         userInactive: "El usuario se encuentra inactivo",
         notFound: 'Registro no encontrado.',
+        rolNotFound: 'Rol no encontrado',
         userNotFound: 'Usuario no encontrado',
+        alreadyExistUsername: 'El nombre de usuario ya se encuentra registrado.',
+        alreadyExistEmail: 'El email ya se encuentra registrado',
+        alreadyExistDocument: 'El número de documento ya se encuentra registrado.',
         serverError: 'Error interno del servidor.'
     }
     return codes[element] ?? MESSAGE('serverError')

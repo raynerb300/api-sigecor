@@ -56,20 +56,3 @@ export async function login(data){
 export async function logout(){
 
 }
-
-export async function changePassword(data){
-    let { username, password } = data;
-
-    password = CryptoJS.SHA256(password).toString();
-
-    const user = await User.update({ password: password, tempory_password: false }, {
-        where: {
-            username: username
-        },
-        returning: true // Para retornar el objeto al actualizarlo
-    });
-
-    if(!(user[0])){
-        throw 'userNotFound';
-    }
-}

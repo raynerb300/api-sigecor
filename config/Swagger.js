@@ -11,9 +11,9 @@ const options = {
     components: {},
 
     info: {
-      title: 'api-sigecor',
+      title: 'Api - Sigecor',
       version: '1.0.0',
-      description: "",
+      description: "Documentation to Sigecor",
     },
     securityDefinitions: {
       bearerAuth: {
