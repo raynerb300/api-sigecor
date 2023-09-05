@@ -49,29 +49,3 @@
  *       500:
  *         description: Internal server error.
  */
-
-/**
- * @swagger
- * /api/sigecor/change-password:
- *   post:
- *     security:
- *     - bearerAuth: []
- *     description: This endpoint allow change password.
- *     summary: Change password.
- *     tags:
- *       - Session 
- *     parameters:
- *      - in: body
- *        name: login
- *        description: Data of session.
- *        required: true
- *        schema:
- *          $ref: '#/components/schemas/change-password'
- *     responses:
- *       200:
- *         description: OK.
- *       404:
- *         description: Not found.
- *       500:
- *         description: Internal server error.
- */
