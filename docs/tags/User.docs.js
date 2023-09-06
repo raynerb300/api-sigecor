@@ -25,7 +25,7 @@
  *   get:
  *     security:
  *     - bearerAuth: []
- *     description: This endpoint get usert.
+ *     description: This endpoint get user.
  *     summary: Get user.
  *     tags:
  *       - Users
