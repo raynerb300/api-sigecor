@@ -3,7 +3,7 @@ import { check, validationResult } from 'express-validator'
 import { URL } from '../helpers/Url.js';
 import { MESSAGE, STATUS } from '../helpers/Constants.js';
 import { responseMessage } from '../helpers/ResponseMessage.js';
-import { ONLY_LETTERS } from '../helpers/Regex.js';
+import { ONLY_LETTERS, ONLY_NUMBERS } from '../helpers/Regex.js';
 
 const UserValidator = express.Router();
 
@@ -57,7 +57,7 @@ UserValidator.post(URL.createUser, [
     .isIn(['M', 'F']).withMessage('El sexo correcto debe ser: M o F'),
     check('nro_document')
     .notEmpty().withMessage('El número de documento es obligatorio.')
-    .isInt().withMessage('El número de documento debe ser un número entero'),
+    .matches(ONLY_NUMBERS).withMessage('El número de documento debe contener solo números'),
     check('rol_id')
     .notEmpty().withMessage('El id del rol es obligatorio.')
     .isInt().withMessage('El rol_id debe ser un número entero')
