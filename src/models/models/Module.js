@@ -1,6 +1,5 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
-import { Permission } from './Permission.js';
 
 export const Module = sequelize.define('module', {
     id: {
@@ -29,9 +28,11 @@ export const Module = sequelize.define('module', {
     }
 });
 
-Module.hasMany(Permission, {
-    foreignKey: {
+Module.associate = function(models) {
+    Module.hasMany(models.Permission, {
+      foreignKey: {
         name: 'module_id',
         allowNull: null
-    }
-});
+      }
+    });
+  };

@@ -4,12 +4,21 @@ export const URL = {
     login: '/login',
     logout: '/logout/:id',
 
-    // Rutas User
+    // Rutas user
     getUsers: '/users',
     getUser: '/users/:id',
     createUser: '/users',
     updateUser: '/users/:id',
     resetPasswordUser: '/users/:id/reset-password',
-    changePassword: '/users/:id/change-password'
+    changePassword: '/users/:id/change-password',
+
+    // Rutas rol
+    getRols: '/rols',
+    getRol: '/rols/:id',
+    createRol: '/rols',
+    updateRol: '/rols/:id',
+
+    // Rutas permisos
+    getPermissions: '/permissions',
 
 }
