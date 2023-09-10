@@ -1,5 +1,6 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
+import { Module } from './Module.js';
 
 export const Permission = sequelize.define('permission', {
     id: {
@@ -27,3 +28,12 @@ export const Permission = sequelize.define('permission', {
         updatedAt: DataTypes.NOW
     }
 });
+
+Permission.associate = function(models) {
+    Permission.belongsTo(models.Module, {
+      foreignKey: {
+        name: 'module_id',
+        allowNull: true
+      }
+    });
+};
