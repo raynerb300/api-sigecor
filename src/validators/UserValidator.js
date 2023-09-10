@@ -3,6 +3,7 @@ import { check, validationResult } from 'express-validator'
 import { URL } from '../helpers/Url.js';
 import { MESSAGE, STATUS } from '../helpers/Constants.js';
 import { responseMessage } from '../helpers/ResponseMessage.js';
+import { ONLY_LETTERS } from '../helpers/Regex.js';
 
 const UserValidator = express.Router();
 
@@ -36,12 +37,14 @@ UserValidator.post(URL.createUser, [
     .notEmpty().withMessage('El nombre es obligatorio.')
     .trim()
     .isString().withMessage('El nombre debe ser una cadena de carácteres.')
-    .isLength({ max: 255 }).withMessage('El nombre máximo puede tener 255 carácteres.'),
+    .isLength({ max: 255 }).withMessage('El nombre máximo puede tener 255 carácteres.')
+    .matches(ONLY_LETTERS).withMessage('El nombre debe contener solo letras y espacios en blanco'),
     check('last_names')
     .notEmpty().withMessage('El apellido es obligatorio.')
     .trim()
     .isString().withMessage('El apellido debe ser una cadena de carácteres.')
-    .isLength({ max: 255 }).withMessage('El nombre máximo puede tener 255 carácteres.'),
+    .isLength({ max: 255 }).withMessage('El apellido máximo puede tener 255 carácteres.')
+    .matches(ONLY_LETTERS).withMessage('El apellido debe contener solo letras y espacios en blanco'),
     check('email')
     .notEmpty().withMessage('El email es obligatorio.')
     .trim()
@@ -87,12 +90,14 @@ UserValidator.patch(URL.updateUser, [
     .notEmpty().withMessage('El nombre es obligatorio.')
     .trim()
     .isString().withMessage('El nombre debe ser una cadena de carácteres.')
-    .isLength({ max: 255 }).withMessage('El nombre máximo puede tener 255 carácteres.'),
+    .isLength({ max: 255 }).withMessage('El nombre máximo puede tener 255 carácteres.')
+    .matches(ONLY_LETTERS).withMessage('El nombre debe contener solo letras y espacios en blanco'),
     check('last_names')
     .notEmpty().withMessage('El apellido es obligatorio.')
     .trim()
     .isString().withMessage('El apellido debe ser una cadena de carácteres.')
-    .isLength({ max: 255 }).withMessage('El nombre máximo puede tener 255 carácteres.'),
+    .isLength({ max: 255 }).withMessage('El apellido máximo puede tener 255 carácteres.')
+    .matches(ONLY_LETTERS).withMessage('El apellido debe contener solo letras y espacios en blanco'),
     check('sex')
     .notEmpty().withMessage('El sexo es obligatorio.')
     .isIn(['M', 'F']).withMessage('El sexo correcto debe ser: M o F'),
