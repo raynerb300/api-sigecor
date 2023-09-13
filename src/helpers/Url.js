@@ -21,4 +21,9 @@ export const URL = {
     // Rutas permisos
     getPermissions: '/permissions',
 
+    // Rutas Tipo Correspondencia
+    getTypeCorrespondence: '/type-correspondences/:id',
+    createTypeCorrespondence: '/type-correspondences',
+    updateTypeCorrespondence: '/type-correspondences/:id',
+
 }

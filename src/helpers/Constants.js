@@ -10,10 +10,13 @@ export const STATUS = (element) => {
         rolNotFound: 404,
         userNotFound: 404,
         permissionNotFound: 404,
+        typeCorrespondenceNotFound: 404,
+        areaNotFound: 404,
         alreadyExistUsername: 409,
         alreadyExistEmail: 409,
         alreadyExistDocument: 409,
         alreadyExistRol: 409,
+        alreadyExistTypeCorrespondence: 409,
         serverError: 500
     }
     return codes[element] ?? STATUS('serverError');
@@ -31,10 +34,13 @@ export const MESSAGE = (element) => {
         rolNotFound: 'Rol no encontrado.',
         userNotFound: 'Usuario no encontrado.',
         permissionNotFound: 'Permiso no encontrado.',
+        typeCorrespondenceNotFound: 'Tipo de correspondencia no encontrado.',
+        areaNotFound: 'Area no encontrada.',
         alreadyExistUsername: 'El nombre de usuario ya se encuentra registrado.',
         alreadyExistEmail: 'El email ya se encuentra registrado.',
         alreadyExistDocument: 'El número de documento ya se encuentra registrado.',
         alreadyExistRol: 'El nombre de rol ya se encuentra registrado.',
+        alreadyExistTypeCorrespondence: 'El nombre de tipo de correspencia ya existe en el área.',
         serverError: 'Error interno del servidor.'
     }
     return codes[element] ?? MESSAGE('serverError')
