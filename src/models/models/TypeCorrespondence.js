@@ -1,6 +1,7 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { Area } from './Area.js';
+import { State } from './State.js';
 
 export const TypeCorrespondence = sequelize.define('type_correspondence', {
     id: {
@@ -40,6 +41,13 @@ export const TypeCorrespondence = sequelize.define('type_correspondence', {
 TypeCorrespondence.belongsTo(Area, {
     foreignKey: {
         name: 'area_id',
+        allowNull: false
+    }
+});
+
+TypeCorrespondence.hasMany(State, {
+    foreignKey: {
+        name: 'type_correspondence_id',
         allowNull: false
     }
 });

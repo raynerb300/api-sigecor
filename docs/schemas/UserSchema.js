@@ -34,7 +34,7 @@
  *           description: Sex of the user.
  *           example: M
  *         rol_id:
- *           type: string
+ *           type: integer
  *           description: Rol id of the user.
  *           example: 1
  *       required:
@@ -76,7 +76,7 @@
  *           description: Status of the user.
  *           example: true
  *         rol_id:
- *           type: string
+ *           type: integer
  *           description: Rol id of the user.
  *           example: 1
  *       required:

@@ -14,7 +14,7 @@ export const Priority = sequelize.define('priority', {
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     status: {
         type: DataTypes.BOOLEAN,
