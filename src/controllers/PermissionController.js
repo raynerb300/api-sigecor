@@ -10,11 +10,11 @@ PersmissionController.get(URL.getPermissions, async (req, res) => {
     await getPermissions()
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 

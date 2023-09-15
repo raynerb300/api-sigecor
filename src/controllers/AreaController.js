@@ -2,16 +2,16 @@ import express from 'express';
 import { URL } from '../helpers/Url.js';
 import { STATUS, MESSAGE } from '../helpers/Constants.js';
 import { responseMessage } from '../helpers/ResponseMessage.js';
-import { getRols, getRol, createRol, updateRol } from '../services/RolServices.js';
-import RolValidator from '../validators/RolValidator.js';
+import { getAreas, getArea, createArea, updateArea } from '../services/AreaServices.js';
+import AreaValidator from '../validators/AreaValidator.js';
 
-const RolController = express.Router();
+const AreaController = express.Router();
 
-RolController.get(URL.getRols, async (req, res) => {
-    await getRols()
+AreaController.get(URL.getAreas, async (req, res) => {
+    await getAreas()
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
@@ -19,11 +19,11 @@ RolController.get(URL.getRols, async (req, res) => {
     })
 });
 
-RolController.get(URL.getRol, RolValidator, async (req, res) => {
-    await getRol(req.params.id)
+AreaController.get(URL.getArea, AreaValidator, async (req, res) => {
+    await getArea(req.params.id)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
@@ -31,11 +31,11 @@ RolController.get(URL.getRol, RolValidator, async (req, res) => {
     })
 });
 
-RolController.post(URL.createRol, RolValidator, async (req, res) => {
-    await createRol(req.body)
+AreaController.post(URL.createArea, AreaValidator, async (req, res) => {
+    await createArea(req.body)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
@@ -43,11 +43,11 @@ RolController.post(URL.createRol, RolValidator, async (req, res) => {
     })
 });
 
-RolController.patch(URL.updateRol, RolValidator, async (req, res) => {
-    await updateRol(req.params.id, req.body)
+AreaController.patch(URL.updateArea, AreaValidator, async (req, res) => {
+    await updateArea(req.params.id, req.body)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
@@ -55,4 +55,4 @@ RolController.patch(URL.updateRol, RolValidator, async (req, res) => {
     })
 });
 
-export default RolController;
+export default AreaController;

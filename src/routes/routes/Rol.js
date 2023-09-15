@@ -6,7 +6,7 @@ const routesRol = (router) =>{
     router.get(URL.getRols, RolController);
     router.get(URL.getRol, RolController);
     router.post(URL.createRol, RolController);
-    router.put(URL.updateRol, RolController);
+    router.patch(URL.updateRol, RolController);
 }
 
 export default routesRol; 

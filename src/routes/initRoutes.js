@@ -4,6 +4,7 @@ import routesUser from './routes/User.js';
 import routesRol from './routes/Rol.js';
 import routesPermission from './routes/Permission.js';
 import routesTypeCorrespondence from './routes/TypeCorrespondence.js';
+import routesArea from './routes/Area.js';
 
 const router = Router();
 
@@ -12,5 +13,6 @@ routesUser(router);
 routesRol(router);
 routesPermission(router);
 routesTypeCorrespondence(router);
+routesArea(router);
 
 export default router;

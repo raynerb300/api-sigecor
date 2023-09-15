@@ -5,13 +5,13 @@ import { MESSAGE, STATUS } from '../helpers/Constants.js';
 import { responseMessage } from '../helpers/ResponseMessage.js';
 import { ONLY_LETTERS_NUMBERS } from '../helpers/Regex.js';
 
-const RolValidator = express.Router();
+const AreaValidator = express.Router();
 
-RolValidator.get(URL.getRol, [
+AreaValidator.get(URL.getArea, [
     check('id')
     .notEmpty().withMessage('El id es obligatorio.')
     .trim()
-    .isInt().withMessage('El id debe ser del tipo integer.'),
+    .isInt().withMessage('El id debe ser del tipo integer.')
 ], async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -27,12 +27,12 @@ RolValidator.get(URL.getRol, [
     }
 });
 
-RolValidator.post(URL.createRol, [
+AreaValidator.post(URL.createArea, [
     check('name')
-    .notEmpty().withMessage('El nombre de Rol es obligatorio.')
+    .notEmpty().withMessage('El nombre de área es obligatorio.')
     .trim()
-    .isString().withMessage('El nombre de rol debe ser una cadena de carácteres.')
-    .isLength({ max: 50}).withMessage('El nombre de rol máximo puede tener 50 carácteres.')
+    .isString().withMessage('El nombre de área debe ser una cadena de carácteres.')
+    .isLength({ max: 50}).withMessage('El nombre de área máximo puede tener 50 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('El nombre debe contener solo números, letras y espacios en blanco'),
     check('description')
     .notEmpty().withMessage('La descripción es obligatorio.')
@@ -40,12 +40,14 @@ RolValidator.post(URL.createRol, [
     .isString().withMessage('La descripción debe ser una cadena de carácteres.')
     .isLength({ max: 255 }).withMessage('La descripción máximo puede tener 255 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('La descripción debe contener solo números, letras y espacios en blanco'),
-    check('permissions')
-    .notEmpty().withMessage('Se debe proporcionar al menos un permiso')
-    .isArray().withMessage('Los permisos deben ser proporcionados en formato de arreglo'),
-    check('permissions.*')
-    .notEmpty().withMessage('Se debe proporcionar el id del permiso.')
-    .isInt().withMessage('El id del permiso debe ser un número entero.')
+    check('manager_id')
+    .notEmpty().withMessage('El manager_id es obligatorio.')
+    .trim()
+    .isUUID().withMessage('El manager_id debe ser del tipo UUID.'),
+    check('coordinator_id')
+    .notEmpty().withMessage('El coordinator_id es obligatorio.')
+    .trim()
+    .isUUID().withMessage('El coordinator_id debe ser del tipo UUID.')
 ], async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -61,12 +63,12 @@ RolValidator.post(URL.createRol, [
     }
 });
 
-RolValidator.patch(URL.updateRol, [
+AreaValidator.patch(URL.updateArea, [
     check('name')
-    .notEmpty().withMessage('El nombre de Rol es obligatorio.')
+    .notEmpty().withMessage('El nombre de área es obligatorio.')
     .trim()
-    .isString().withMessage('El nombre de rol debe ser una cadena de carácteres.')
-    .isLength({ max: 50}).withMessage('El nombre de rol máximo puede tener 50 carácteres.')
+    .isString().withMessage('El nombre de área debe ser una cadena de carácteres.')
+    .isLength({ max: 50}).withMessage('El nombre de área máximo puede tener 50 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('El nombre debe contener solo números, letras y espacios en blanco'),
     check('description')
     .notEmpty().withMessage('La descripción es obligatorio.')
@@ -77,12 +79,14 @@ RolValidator.patch(URL.updateRol, [
     check('status')
     .notEmpty().withMessage('El estatus es obligatorio')
     .isBoolean().withMessage('El status debe ser un boolean.'),
-    check('permissions')
-    .notEmpty().withMessage('Se debe proporcionar al menos un permiso')
-    .isArray().withMessage('Los permisos deben ser proporcionados en formato de arreglo'),
-    check('permissions.*')
-    .notEmpty().withMessage('Se debe proporcionar el id del permiso.')
-    .isInt().withMessage('El id del permiso debe ser un número entero.')
+    check('manager_id')
+    .notEmpty().withMessage('El manager_id es obligatorio.')
+    .trim()
+    .isUUID().withMessage('El manager_id debe ser del tipo UUID.'),
+    check('coordinator_id')
+    .notEmpty().withMessage('El coordinator_id es obligatorio.')
+    .trim()
+    .isUUID().withMessage('El coordinator_id debe ser del tipo UUID.')
 ], async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -98,4 +102,4 @@ RolValidator.patch(URL.updateRol, [
     }
 });
 
-export default RolValidator;
+export default AreaValidator;
