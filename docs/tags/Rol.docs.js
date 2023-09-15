@@ -78,6 +78,8 @@
  *         description: Forbidden.
  *       404:
  *         description: Not found.
+ *       409:
+ *         description: Already exist.
  *       500:
  *         description: Internal server error.
  */
@@ -116,6 +118,8 @@
  *         description: Forbidden.
  *       404:
  *         description: Not found.
+ *       409:
+ *         description: Already exist.
  *       500:
  *         description: Internal server error.
  */
