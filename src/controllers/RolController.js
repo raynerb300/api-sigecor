@@ -43,7 +43,7 @@ RolController.post(URL.createRol, RolValidator, async (req, res) => {
     })
 });
 
-RolController.put(URL.updateRol, RolValidator, async (req, res) => {
+RolController.patch(URL.updateRol, RolValidator, async (req, res) => {
     await updateRol(req.params.id, req.body)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));

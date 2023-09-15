@@ -87,7 +87,7 @@
 /**
  * @swagger
  * /api/sigecor/rols/{id}:
- *   put:
+ *   patch:
  *     security:
  *     - bearerAuth: []
  *     description: This endpoint allow update a rol.

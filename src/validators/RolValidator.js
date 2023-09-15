@@ -61,7 +61,7 @@ RolValidator.post(URL.createRol, [
     }
 });
 
-RolValidator.put(URL.updateRol, [
+RolValidator.patch(URL.updateRol, [
     check('name')
     .notEmpty().withMessage('El nombre de Rol es obligatorio.')
     .trim()
