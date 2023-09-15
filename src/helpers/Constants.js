@@ -17,6 +17,7 @@ export const STATUS = (element) => {
         alreadyExistDocument: 409,
         alreadyExistRol: 409,
         alreadyExistTypeCorrespondence: 409,
+        alreadyExistArea: 409,
         serverError: 500
     }
     return codes[element] ?? STATUS('serverError');
@@ -40,7 +41,8 @@ export const MESSAGE = (element) => {
         alreadyExistEmail: 'El email ya se encuentra registrado.',
         alreadyExistDocument: 'El número de documento ya se encuentra registrado.',
         alreadyExistRol: 'El nombre de rol ya se encuentra registrado.',
-        alreadyExistTypeCorrespondence: 'El nombre de tipo de correspencia ya existe en el área.',
+        alreadyExistTypeCorrespondence: 'El nombre de tipo de correspencia ya se encuentra registrado en el área.',
+        alreadyExistArea: 'El nombre de área ya se encuentra registrado.',
         serverError: 'Error interno del servidor.'
     }
     return codes[element] ?? MESSAGE('serverError')

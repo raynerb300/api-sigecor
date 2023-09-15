@@ -26,4 +26,10 @@ export const URL = {
     createTypeCorrespondence: '/type-correspondences',
     updateTypeCorrespondence: '/type-correspondences/:id',
 
+    // Rutas area
+    getAreas: '/areas',
+    getArea: '/areas/:id',
+    createArea: '/areas',
+    updateArea: '/areas/:id',
+
 }

@@ -34,6 +34,7 @@ export const Area = sequelize.define('area', {
 });
 
 Area.belongsTo(User,{
+    as: 'manager',
     foreignKey: {
         name: 'manager_id',
         allowNull: false
@@ -41,8 +42,18 @@ Area.belongsTo(User,{
 });
 
 Area.belongsTo(User, {
+    as: 'coordinator',
     foreignKey: {
         name: 'coordinator_id',
         allowNull: false
     }
-})
+});
+
+Area.associate = function(models) {
+    Area.hasMany(models.TypeCorrespondence, {
+      foreignKey: {
+        name: 'area_id',
+        allowNull: null
+      }
+    });
+  };
