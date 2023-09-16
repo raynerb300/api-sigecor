@@ -21,4 +21,17 @@ const initModels = sequelize.sync({ force : false })
     }
 );
 
+sequelize.addHook('beforeValidate', (instance, options) => { 
+    const modelName =  instance.constructor.name;
+
+    for (const key in instance.dataValues) {
+        const value = instance.dataValues[key];
+        if (typeof value === 'string') {
+            if(!(modelName === 'user' && (key === 'username' || key === 'password'))){
+                instance.dataValues[key] = value.toUpperCase();
+            }
+        }
+    }
+});
+
 export default initModels;

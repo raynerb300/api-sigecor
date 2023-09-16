@@ -20,7 +20,7 @@ export const State = sequelize.define('state', {
         allowNull: false,
         defaultValue: true
     },
-    orden: {
+    order: {
         type: DataTypes.INTEGER,
         allowNull: false
     }
