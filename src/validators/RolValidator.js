@@ -35,6 +35,7 @@ RolValidator.post(URL.createRol, [
     .isLength({ max: 50}).withMessage('El nombre de rol máximo puede tener 50 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('El nombre debe contener solo números, letras y espacios en blanco'),
     check('description')
+    .optional({ nullable: true }) 
     .notEmpty().withMessage('La descripción es obligatorio.')
     .trim()
     .isString().withMessage('La descripción debe ser una cadena de carácteres.')
@@ -69,6 +70,7 @@ RolValidator.patch(URL.updateRol, [
     .isLength({ max: 50}).withMessage('El nombre de rol máximo puede tener 50 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('El nombre debe contener solo números, letras y espacios en blanco'),
     check('description')
+    .optional({ nullable: true }) 
     .notEmpty().withMessage('La descripción es obligatorio.')
     .trim()
     .isString().withMessage('La descripción debe ser una cadena de carácteres.')
