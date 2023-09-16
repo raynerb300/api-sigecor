@@ -32,4 +32,8 @@ export const URL = {
     createArea: '/areas',
     updateArea: '/areas/:id',
 
+    // Rutas estados
+    getState: '/states/:id',
+    createState: '/states',
+    updateState: '/states/:id',
 }
