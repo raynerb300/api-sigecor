@@ -35,6 +35,7 @@ TypeCorrespondenceValidator.post(URL.createTypeCorrespondence, [
     .isLength({ max: 50}).withMessage('El nombre de tipo de correspondencia máximo puede tener 50 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('El nombre de tipo correspondencia debe contener solo números, letras y espacios en blanco'),
     check('description')
+    .optional({ nullable: true }) 
     .notEmpty().withMessage('La descripción es obligatorio.')
     .trim()
     .isString().withMessage('La descripción debe ser una cadena de carácteres.')
@@ -69,6 +70,7 @@ TypeCorrespondenceValidator.patch(URL.updateTypeCorrespondence, [
     .isLength({ max: 50}).withMessage('El nombre de tipo de correspondencia máximo puede tener 50 carácteres.')
     .matches(ONLY_LETTERS_NUMBERS).withMessage('El nombre de tipo correspondencia debe contener solo números, letras y espacios en blanco'),
     check('description')
+     .optional({ nullable: true }) 
     .notEmpty().withMessage('La descripción es obligatorio.')
     .trim()
     .isString().withMessage('La descripción debe ser una cadena de carácteres.')
