@@ -16,7 +16,7 @@ import './models/Correspondence.js';
 import './models/Position.js';
 import './models/Job.js';
 
-const initModels = sequelize.sync({ force : true })
+const initModels = sequelize.sync({ force : false })
     .then(() => {
         console.log('Tablas sincronizadas');
     }
