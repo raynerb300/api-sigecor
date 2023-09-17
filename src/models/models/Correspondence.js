@@ -1,9 +1,7 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
 import { State } from './State.js';
-import { TypeCorrespondence } from './TypeCorrespondence.js';
 import { User } from './User.js';
-import { ExternalAgent } from './ExternalAgent.js';
 import { Priority } from './Priority.js';
 import { Document } from './Document.js';
 
@@ -26,10 +24,6 @@ export const Correspondence = sequelize.define('correspondence', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    receipt_date: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
     archive_date: {
         type: DataTypes.DATE,
         allowNull: true
@@ -39,7 +33,11 @@ export const Correspondence = sequelize.define('correspondence', {
         allowNull: false,
         defaultValue: true
     },
-
+    resend: {
+        type: DataTypes.BOOLEAN,
+        allowNull:false,
+        defaultValue: false
+    }
 }, {
     freezeTableName: true,
     timestamps: true,
@@ -58,23 +56,18 @@ Correspondence.belongsTo(State, {
     }
 });
 
-Correspondence.belongsTo(TypeCorrespondence, {
-    foreignKey: {
-        name: 'type_correspondence_id',
-        allowNull: false
-    }
-});
-
 Correspondence.belongsTo(User, {
+    as: 'transmiter',
     foreignKey: {
         name: 'user_id',
         allowNull: true
     }
 });
 
-Correspondence.belongsTo(ExternalAgent, {
+Correspondence.belongsTo(User, {
+    as: 'responsible',
     foreignKey: {
-        name:'external_agent_id',
+        name: 'user_id',
         allowNull: true
     }
 });
@@ -112,7 +105,7 @@ Correspondence.belongsToMany(Correspondence, {
 });
 
 Correspondence.belongsToMany(User, {
-    through: 'responsible',
+    through: 'approved',
     foreignKey: {
         name: 'correspondence_id',
         allowNull: false
@@ -120,7 +113,7 @@ Correspondence.belongsToMany(User, {
 });
 
 User.belongsToMany(Correspondence, {
-    through: 'responsible',
+    through: 'approved',
     foreignKey: {
         name: 'user_id',
         allowNull: false
