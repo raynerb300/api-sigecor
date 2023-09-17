@@ -30,24 +30,4 @@ SessionValidator.post(URL.login, [
     }
 });
 
-SessionValidator.post(URL.logout, [
-    check('id')
-    .notEmpty().withMessage('')
-    .trim()
-    .isUUID().withMessage('')
-], async (req, res, next) => {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            throw {
-                name: 'badRequest',
-                errors: errors
-            }
-        }
-        return next();
-    } catch (error) {
-        res.status(STATUS(error.name)).send(responseMessage(STATUS(error.name), error.errors, MESSAGE(error.name)));
-    }
-});
-
 export default SessionValidator;

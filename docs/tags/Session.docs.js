@@ -23,29 +23,3 @@
  *       500:
  *         description: Internal server error.
  */
-
-/**
- * @swagger
- * /api/sigecor/logout/{id}:
- *   post:
- *     security:
- *     - bearerAuth: []
- *     description: This endpoint allow logout session.
- *     summary: Logout.
- *     tags:
- *       - Session 
- *     parameters:
- *        - name: id
- *          in: path
- *          description: Id of user to be logout
- *          required: true
- *          type: string
- *          example: "uuid"
- *     responses:
- *       200:
- *         description: OK.
- *       404:
- *         description: Not found.
- *       500:
- *         description: Internal server error.
- */
