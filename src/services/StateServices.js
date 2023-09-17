@@ -10,7 +10,7 @@ export async function getState(id){
         }
     });
 
-    if(!(state)){
+    if(!state){
         throw 'stateNotFound';
     }
 
@@ -29,7 +29,7 @@ export async function createState(data){
 
     const existState = await State.findOne({
         where: {
-            name: name,
+            name: name.toUpperCase(),
             type_correspondence_id: type_correspondence_id
         }
     });
@@ -55,7 +55,7 @@ export async function createState(data){
 
 export async function updateState(id, data){
 
-    const { name } = data;
+    const { name, order } = data;
 
     try {
 
@@ -64,10 +64,14 @@ export async function updateState(id, data){
         if(!state){
             throw 'stateNotFound';
         }
+
+        if(state.dataValues.name === 'POR APROBAR' || state.dataValues.name === 'APROBADO'){
+            throw 'cantModifyStateSystem';
+        }
         
         const existingState = await State.findOne({
             where: {
-                name: name,
+                name: name.toUpperCase(),
                 type_correspondence_id: state.type_correspondence_id,
                 [Op.not]: {
                     id: id
@@ -77,6 +81,20 @@ export async function updateState(id, data){
 
         if(existingState){
             throw 'alreadyExistState';
+        }
+
+        const existOrderState = await State.findOne({
+            where: {
+                type_correspondence_id: state.type_correspondence_id,
+                order: order,
+                [Op.not]: {
+                    id: id
+                }
+            }
+        });
+    
+        if(existOrderState){
+            throw 'alreadyExistStateOrder';
         }
 
         await State.update(data ,{

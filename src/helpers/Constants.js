@@ -21,6 +21,7 @@ export const STATUS = (element) => {
         alreadyExistArea: 409,
         alreadyExistState: 409,
         alreadyExistStateOrder: 409,
+        cantModifyStateSystem: 409,
         serverError: 500
     }
     return codes[element] ?? STATUS('serverError');
@@ -49,6 +50,7 @@ export const MESSAGE = (element) => {
         alreadyExistArea: 'El nombre de área ya se encuentra registrado.',
         alreadyExistState: 'El nombre de estado ya se encuentra registrado en el tipo de correspondencia.',
         alreadyExistStateOrder: 'El orden del estado ya se encuentra registrado en el tipo de correspondencia.',
+        cantModifyStateSystem: 'No se pueden modificar los estados base del sistema.',
         serverError: 'Error interno del servidor.'
     }
     return codes[element] ?? MESSAGE('serverError')
