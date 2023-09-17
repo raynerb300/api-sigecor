@@ -1,7 +1,12 @@
+import sequelize from '../../config/Connection.js';
 import { Area } from '../models/models/Area.js';
 import { TypeCorrespondence } from '../models/models/TypeCorrespondence.js';
 import { User } from '../models/models/User.js';
+import { Position } from '../models/models/Position.js';
+import { State } from '../models/models/State.js';
 import { Op } from 'sequelize';
+
+Area.associate({ TypeCorrespondence, Position });
 
 export async function getAreas(){
 
@@ -9,14 +14,19 @@ export async function getAreas(){
         attributes: { 
             exclude: ['created_at', 'updated_at', 'manager_id', 'coordinator_id'] 
         },
-        include: [ { 
-            model: User, 
-            as: 'manager',
-            attributes: ['names', 'last_names', 'type_document', 'nro_document'] 
-        }, { 
-            model: User, 
-            as: 'coordinator',
-            attributes: ['names', 'last_names', 'type_document', 'nro_document'] 
+        include: [{ 
+            model: Position, 
+            attributes: ['name'],
+            where: {
+                name: ['GERENTE', 'COORDINADOR'] 
+            },
+            include: [{
+                model: User,
+                attributes: ['names', 'last_names', 'type_document', 'nro_document'],
+                through: { 
+                    attributes: [] 
+                }
+            }]
         }]
     });
 
@@ -24,24 +34,24 @@ export async function getAreas(){
 
 export async function getArea(id){
 
-    Area.associate({ TypeCorrespondence });
-
     const area = await Area.findByPk(id, {
         attributes: { 
           exclude: ['created_at', 'updated_at', 'manager_id','coordinator_id'] 
         },
         include: [ { 
-            model: User, 
-            as: 'manager',
-            attributes: ['names', 'last_names', 'type_document', 'nro_document'] 
-        }, { 
-            model: User, 
-            as: 'coordinator',
-            attributes: ['names', 'last_names', 'type_document', 'nro_document'] 
+            model: Position, 
+            attributes: ['name'],
+            include: [{
+                model: User,
+                attributes: ['names', 'last_names', 'type_document', 'nro_document'],
+                through: { 
+                    attributes: [] 
+                }
+            }]
         }, {
             model: TypeCorrespondence,
             attributes: { 
-                exclude: ['created_at', 'updated_at'] 
+                exclude: ['created_at', 'updated_at', 'area_id'] 
             }
         }]
     });
@@ -55,12 +65,14 @@ export async function getArea(id){
 
 export async function createArea(data){
 
-    const { name, manager_id, coordinator_id } = data;
+    const t = await sequelize.transaction();
+    const { name  } = data;
 
     try {
+
         const existingArea = await Area.findOne({
             where: {
-                name: name
+                name: name.toUpperCase()
             }
         });
 
@@ -68,28 +80,53 @@ export async function createArea(data){
             throw 'alreadyExistArea';
         }
 
-        const manager = await User.findByPk(manager_id);
+        const area = await Area.create(data, { transaction: t });
 
-        if(!manager){
-            throw 'userNotFound';
-        }
+        await Position.create({
+            name: 'COORDINADOR',
+            area_id: area.dataValues.id,
+            description: 'COORDINADOR DEL AREA'
+        }, { transaction: t });
 
-        const coordinator = await User.findByPk(coordinator_id);
+        await Position.create({
+            name: 'GERENTE',
+            area_id: area.dataValues.id,
+            description: 'GERENTE DEL AREA'
+        }, { transaction: t });
 
-        if(!coordinator){
-            throw 'userNotFound';
-        }
+        const typeCorrespondence = await TypeCorrespondence.create({
+            name: 'PÚBLICO',
+            area_id: area.dataValues.id,
+            description: 'TIPO DE CORRESPONDENCIA POR DEFECTO',
+            approved: false
+        }, { transaction: t });
 
-        return await Area.create(data);
+        await State.create({
+            name: 'POR APROBAR',
+            description: 'CORRESPONDENCIA POR APROBAR',
+            order: 1,
+            type_correspondence_id: typeCorrespondence.dataValues.id
+        }, { transaction: t });
+
+        await State.create({
+            name: 'APROBADO',
+            description: 'CORRESPONDENCIA APROBADA',
+            order: 2,
+            type_correspondence_id: typeCorrespondence.dataValues.id
+        }, { transaction: t });
+
+        await t.commit();
+        return area;
 
     } catch (error) {
+        await t.rollback();
         throw error;
     }
 }
 
 export async function updateArea(id, data){
 
-    const { name, manager_id, coordinator_id } = data;
+    const { name } = data;
 
     try {
 
@@ -101,7 +138,7 @@ export async function updateArea(id, data){
 
         const existingArea = await Area.findOne({
             where: {
-                name: name,
+                name: name.toUpperCase(),
                 [Op.not]: { 
                     id: id
                 }
@@ -111,19 +148,7 @@ export async function updateArea(id, data){
         if(existingArea){
             throw 'alreadyExistArea';
         }
-
-        const manager = await User.findByPk(manager_id);
-
-        if(!manager){
-            throw 'userNotFound';
-        }
-
-        const coordinator = await User.findByPk(coordinator_id);
-
-        if(!coordinator){
-            throw 'userNotFound';
-        }
-
+        
         area.update(data);
 
     } catch (error) {

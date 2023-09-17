@@ -39,4 +39,11 @@ Area.associate = function(models) {
             allowNull: null
         }
     });
+
+    Area.hasMany(models.Position, {
+        foreignKey: {
+            name: 'area_id',
+            allowNull: null
+        }
+    });
 }

@@ -10,8 +10,7 @@ export const Position = sequelize.define('position', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     description: {
         type: DataTypes.STRING,

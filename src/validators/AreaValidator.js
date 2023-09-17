@@ -40,15 +40,7 @@ AreaValidator.post(URL.createArea, [
     .trim()
     .isString().withMessage('La descripción debe ser una cadena de carácteres.')
     .isLength({ max: 255 }).withMessage('La descripción máximo puede tener 255 carácteres.')
-    .matches(ONLY_LETTERS_NUMBERS).withMessage('La descripción debe contener solo números, letras y espacios en blanco'),
-    check('manager_id')
-    .notEmpty().withMessage('El manager_id es obligatorio.')
-    .trim()
-    .isUUID().withMessage('El manager_id debe ser del tipo UUID.'),
-    check('coordinator_id')
-    .notEmpty().withMessage('El coordinator_id es obligatorio.')
-    .trim()
-    .isUUID().withMessage('El coordinator_id debe ser del tipo UUID.')
+    .matches(ONLY_LETTERS_NUMBERS).withMessage('La descripción debe contener solo números, letras y espacios en blanco')
 ], async (req, res, next) => {
     try {
         const errors = validationResult(req);
@@ -80,15 +72,7 @@ AreaValidator.patch(URL.updateArea, [
     .matches(ONLY_LETTERS_NUMBERS).withMessage('La descripción debe contener solo números, letras y espacios en blanco'),
     check('status')
     .notEmpty().withMessage('El estatus es obligatorio')
-    .isBoolean().withMessage('El status debe ser un boolean.'),
-    check('manager_id')
-    .notEmpty().withMessage('El manager_id es obligatorio.')
-    .trim()
-    .isUUID().withMessage('El manager_id debe ser del tipo UUID.'),
-    check('coordinator_id')
-    .notEmpty().withMessage('El coordinator_id es obligatorio.')
-    .trim()
-    .isUUID().withMessage('El coordinator_id debe ser del tipo UUID.')
+    .isBoolean().withMessage('El status debe ser un boolean.')
 ], async (req, res, next) => {
     try {
         const errors = validationResult(req);
