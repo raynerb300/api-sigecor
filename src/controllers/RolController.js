@@ -11,11 +11,11 @@ RolController.get(URL.getRols, async (req, res) => {
     await getRols()
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
@@ -23,11 +23,11 @@ RolController.get(URL.getRol, RolValidator, async (req, res) => {
     await getRol(req.params.id)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
@@ -35,11 +35,11 @@ RolController.post(URL.createRol, RolValidator, async (req, res) => {
     await createRol(req.body)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
@@ -47,11 +47,11 @@ RolController.patch(URL.updateRol, RolValidator, async (req, res) => {
     await updateRol(req.params.id, req.body)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 

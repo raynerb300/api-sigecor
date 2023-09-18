@@ -11,11 +11,11 @@ SessionController.post(URL.login, SessionValidator, async (req, res) => {
     await login(req.body)
     .then((result) => {
         const response = responseMessage(STATUS('success'), result, MESSAGE('success'));
-        res.status(STATUS('success')).send(response);
+        res.status(STATUS('success')).json(response);
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
