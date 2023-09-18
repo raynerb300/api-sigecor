@@ -94,6 +94,12 @@ export async function createArea(data){
             description: 'GERENTE DEL AREA'
         }, { transaction: t });
 
+        await Position.create({
+            name: 'ANALISTA',
+            area_id: area.dataValues.id,
+            description: 'ANALISTA DEL AREA'
+        }, { transaction: t });
+
         const typeCorrespondence = await TypeCorrespondence.create({
             name: 'PÚBLICO',
             area_id: area.dataValues.id,
