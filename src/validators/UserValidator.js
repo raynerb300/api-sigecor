@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express';
 import { check, validationResult } from 'express-validator'
 import { URL } from '../helpers/Url.js';
 import { MESSAGE, STATUS } from '../helpers/Constants.js';
