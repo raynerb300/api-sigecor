@@ -1,24 +1,48 @@
 import CryptoJS from 'crypto-js';
 import { User } from '../models/models/User.js';
 import { Rol } from '../models/models/Rol.js';
+import { Position } from '../models/models/Position.js';
 import { generateRandomPassword } from '../helpers/GenerateRandomPassword.js';
 import { Op } from 'sequelize';
+import { Area } from '../models/models/Area.js';
 
 export async function getUsers(){
     return await User.findAll({
-        attributes: { exclude: ['password'] },
-        raw: true
+        attributes: { 
+            exclude: ['password', 'tempory_password', 'created_at', 'updated_at', 'rol_id'] 
+        },
+        include: [{
+            model: Rol,
+            attributes: ['name']
+        }]
     });
 }
 
 export async function getUser(id){
     const user = await User.findByPk(id, {
         attributes: { 
-            exclude: ['password'] 
+            exclude: ['password', 'tempory_password', 'created_at', 'updated_at'] 
+        },
+        include: [
+        {
+            model: Position,
+            attributes: ['name'],
+            include: [{
+                model: Area,
+                attributes: ['name']
+            }],
+            through: { 
+                attributes: [] 
+            }
+        },
+        {
+            model: Rol,
+            attributes: ['name']
         }
+        ]
     });
     
-    if(!(user)){
+    if(!user){
         throw 'userNotFound';
     }
 
@@ -95,7 +119,7 @@ export async function updateUser(id, data){
         }
     });
 
-    if(!(existRol)){
+    if(!existRol){
         throw 'rolNotFound';
     }
 
