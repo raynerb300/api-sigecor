@@ -6,27 +6,23 @@ import { Op } from 'sequelize';
 
 export async function getRols(){
     return await Rol.findAll({
-        attributes: { exclude: ['created_at', 'updated_at'] },
-        raw: true
+        attributes: { exclude: ['created_at', 'updated_at'] }
     });
 }
 
 export async function getRol(id){
 
-    Module.associate({ Permission });
-
     const rol = await Rol.findByPk(id, {
         attributes: { 
           exclude: ['created_at', 'updated_at'] 
-        },
-        raw: true
+        }
     });
 
-    if(!(rol)){
+    if(!rol){
         throw 'rolNotFound';
     }
 
-    rol.modules = await Module.findAll({
+    rol.dataValues.modules = await Module.findAll({
         attributes: ['id', 'name', 'status'],
         include: [{
             model: Permission,
@@ -49,11 +45,12 @@ export async function createRol(data){
 
     const t = await sequelize.transaction();
     const { permissions, name } = data;
+
     try {
         
         const existingRol = await Rol.findOne({
             where: {
-                name: name
+                name: name.toUpperCase()
             }
         });
 
@@ -92,6 +89,7 @@ export async function updateRol(id, data){
 
     const t = await sequelize.transaction();
     const { permissions, name } = data;
+
     try {
 
         const rol = await Rol.findByPk(id);
@@ -102,7 +100,7 @@ export async function updateRol(id, data){
 
         const existingRol = await Rol.findOne({
             where: {
-                name: name,
+                name: name.toUpperCase(),
                 [Op.not]: {
                     id: id
                 }
@@ -117,8 +115,7 @@ export async function updateRol(id, data){
         await Rol.update(data ,{
             where: {
                 id: id
-            },
-            returning: true
+            }
         }, { transaction: t });
 
         // Busco todos los permisos

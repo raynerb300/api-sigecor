@@ -1,6 +1,5 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
-import { Module } from './Module.js';
 
 export const Permission = sequelize.define('permission', {
     id: {
@@ -10,8 +9,7 @@ export const Permission = sequelize.define('permission', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     status: {
         type: DataTypes.BOOLEAN,

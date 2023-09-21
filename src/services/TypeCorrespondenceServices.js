@@ -8,31 +8,19 @@ export async function getTypeCorrespondence(id){
 
     const typeCorrespondence = await TypeCorrespondence.findByPk(id, {
         attributes: { 
-          exclude: ['created_at', 'updated_at'] 
+          exclude: ['created_at', 'updated_at', 'area_id'] 
         },
-        raw: true
+        include: [{
+            model: State,
+            attributes: {
+                exclude: ['created_at', 'updated_at', 'type_correspondence_id']
+            }
+        }]
     });
 
-    if(!(typeCorrespondence)){
+    if(!typeCorrespondence){
         throw 'typeCorrespondenceNotFound';
     }
-
-    typeCorrespondence.state = await State.findAll({
-        attributes: {
-            exclude: ['created_at', 'updated_at', 'type_correspondence_id']
-        },
-        where: {
-            [Op.not]: {
-                [Op.or]: [{
-                    name: 'APROBADO'
-                }, {
-                    name: 'POR APROBAR'
-                }]
-            },
-            type_correspondence_id: id
-        },
-        raw: true
-    });
 
     return typeCorrespondence;
 }
@@ -52,7 +40,7 @@ export async function createTypeCorrespondence(data){
         
         const existingTypeCorrespondence = await TypeCorrespondence.findOne({
             where: {
-                name: name,
+                name: name.toUpperCase(),
                 area_id: area_id
             }
         });
@@ -65,14 +53,15 @@ export async function createTypeCorrespondence(data){
 
         await State.create({
             name: 'POR APROBAR',
-            description: 'Correspondencia por abrobar',
-            orden: 1,
+            description: 'CORRESPONDENCIA POR APROBAR',
+            order: 1,
             type_correspondence_id: typeCorrespondence.id
         }, { transaction: t });
+
         await State.create({
             name: 'APROBADO',
-            description: 'Correspondencia aprobada',
-            orden: 2,
+            description: 'CORRESPENDENCIA APROBADA',
+            order: 2,
             type_correspondence_id: typeCorrespondence.id
         }, { transaction: t });
 
@@ -88,36 +77,30 @@ export async function createTypeCorrespondence(data){
 export async function updateTypeCorrespondence(id, data){
 
     const { name } = data;
+    const typeCorrespondence = await TypeCorrespondence.findByPk(id);
 
-    try {
+    if (!typeCorrespondence) {
+        throw 'typeCorrespondenceNotFound';
+    }
 
-        const typeCorrespondence = await TypeCorrespondence.findByPk(id);
-
-        if(!typeCorrespondence){
-            throw 'typeCorrespondenceNotFound';
-        }
-        
-        const existingTypeCorrespondence = await TypeCorrespondence.findOne({
-            where: {
-                name: name,
-                area_id: typeCorrespondence.area_id,
-                [Op.not]: {
-                    id: id
-                }
-            }
-        });
-
-        if(existingTypeCorrespondence){
-            throw 'alreadyExistTypeCorrespondence';
-        }
-
-        await TypeCorrespondence.update(data ,{
-            where: {
+    const existingTypeCorrespondence = await TypeCorrespondence.findOne({
+        where: {
+            name: name.toUpperCase(),
+            area_id: typeCorrespondence.area_id,
+            [Op.not]: {
                 id: id
             }
-        });
+        }
+    });
 
-    } catch (error) {
-        throw error;
+    if (existingTypeCorrespondence) {
+        throw 'alreadyExistTypeCorrespondence';
     }
+
+    await TypeCorrespondence.update(data, {
+        where: {
+            id: id
+        }
+    });
+
 }

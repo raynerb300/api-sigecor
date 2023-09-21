@@ -15,7 +15,7 @@ AreaController.get(URL.getAreas, async (req, res) => {
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
@@ -27,7 +27,7 @@ AreaController.get(URL.getArea, AreaValidator, async (req, res) => {
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
@@ -39,7 +39,7 @@ AreaController.post(URL.createArea, AreaValidator, async (req, res) => {
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 
@@ -51,7 +51,7 @@ AreaController.patch(URL.updateArea, AreaValidator, async (req, res) => {
     })
     .catch((error) => {
         const response = responseMessage(STATUS(error), null, MESSAGE(error));
-        res.status(STATUS(error)).send(response);
+        res.status(STATUS(error)).json(response);
     })
 });
 

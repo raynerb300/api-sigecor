@@ -1,6 +1,5 @@
 import sequelize from '../../../config/Connection.js';
 import { DataTypes } from 'sequelize';
-import { User } from './User.js';
 
 export const Area = sequelize.define('area', {
     id: {
@@ -33,27 +32,18 @@ export const Area = sequelize.define('area', {
     }
 });
 
-Area.belongsTo(User,{
-    as: 'manager',
-    foreignKey: {
-        name: 'manager_id',
-        allowNull: false
-    }
-});
-
-Area.belongsTo(User, {
-    as: 'coordinator',
-    foreignKey: {
-        name: 'coordinator_id',
-        allowNull: false
-    }
-});
-
 Area.associate = function(models) {
     Area.hasMany(models.TypeCorrespondence, {
-      foreignKey: {
-        name: 'area_id',
-        allowNull: null
-      }
+        foreignKey: {
+            name: 'area_id',
+            allowNull: null
+        }
     });
-  };
+
+    Area.hasMany(models.Position, {
+        foreignKey: {
+            name: 'area_id',
+            allowNull: null
+        }
+    });
+}
