@@ -20,7 +20,7 @@
  *       required:
  *         - name
  *         - description
- *         - permisos
+ *         - permissions
  */
 
 /**  
@@ -50,5 +50,5 @@
  *         - name
  *         - description
  *         - status
- *         - permisos
+ *         - permissions
  */
