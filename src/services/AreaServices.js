@@ -30,7 +30,7 @@ export async function getArea(id){
         throw 'areaNotFound';
     }
 
-    const members = await User.findAll({
+    area.dataValues.members = await User.findAll({
         attributes: ['names', 'last_names', 'type_document', 'nro_document', 'status'],
         include: [{
             model: Position,
@@ -41,33 +41,46 @@ export async function getArea(id){
             }
         }]
     });
-
-    area.dataValues.members = members;
     
     return area;
 }
 
 export async function getAreaTypeCorrespondences(id){
-    const typeCorrespondence = await TypeCorrespondence.findAll({
-            attributes: { 
-                exclude: ['created_at', 'updated_at', 'area_id'] 
-            },
-            where: {
-                area_id: id
-            },
-            include: [{
-                model: State,
-                attributes: {
-                    exclude: ['created_at', 'updated_at', 'type_correspondence_id']
-                }
-            }]
+
+    await Area.findByPk(id)
+        .then((result) => {
+            if(!result){
+                throw 'areaNotFound';
+            }
+        });
+
+    return await TypeCorrespondence.findAll({
+        attributes: {
+            exclude: ['created_at', 'updated_at', 'area_id']
+        },
+        where: {
+            area_id: id
+        },
+        include: [{
+            model: State,
+            attributes: {
+                exclude: ['created_at', 'updated_at', 'type_correspondence_id']
+            }
+        }]
     });
     
-    return typeCorrespondence;
 }
 
 export async function getAreaPositions(id){
-    const positions = await Position.findAll({
+
+    await Area.findByPk(id)
+        .then((result) => {
+            if(!result){
+                throw 'areaNotFound';
+            }
+        });
+
+    return await Position.findAll({
         attributes: { 
           exclude: ['created_at', 'updated_at', 'area_id'] 
         },
@@ -76,7 +89,6 @@ export async function getAreaPositions(id){
         }
     });
     
-    return positions;
 }
 
 export async function createArea(data){
@@ -149,31 +161,26 @@ export async function createArea(data){
 export async function updateArea(id, data){
 
     const { name } = data;
+    
+    const area = await Area.findByPk(id);
 
-    try {
-
-        const area = await Area.findByPk(id);
-
-        if(!area){
-            throw 'areaNotFound';
-        }
-
-        const existingArea = await Area.findOne({
-            where: {
-                name: name.toUpperCase(),
-                [Op.not]: { 
-                    id: id
-                }
-            }
-        });
-
-        if(existingArea){
-            throw 'alreadyExistArea';
-        }
-        
-        area.update(data);
-
-    } catch (error) {
-        throw error;
+    if (!area) {
+        throw 'areaNotFound';
     }
+
+    const existingArea = await Area.findOne({
+        where: {
+            name: name.toUpperCase(),
+            [Op.not]: {
+                id: id
+            }
+        }
+    });
+
+    if (existingArea) {
+        throw 'alreadyExistArea';
+    }
+
+    area.update(data);
+
 }
