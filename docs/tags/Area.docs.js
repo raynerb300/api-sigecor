@@ -124,3 +124,59 @@
  *       500:
  *         description: Internal server error.
  */
+
+/**
+ * @swagger
+ * /api/sigecor/areas/{id}/type-correspondences:
+ *   get:
+ *     security:
+ *     - bearerAuth: []
+ *     description: This endpoint get type correspondences of a area.
+ *     summary: Get type correspondences of area.
+ *     tags:
+ *       - Areas
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: Id of area to be consult
+ *        required: true
+ *        type: integer
+ *        example: 1
+ *     responses:
+ *       200:
+ *         description: OK.
+ *       401:
+ *         description: Unathorized.
+ *       403:
+ *         description: Forbidden.
+ *       500:
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /api/sigecor/areas/{id}/positions:
+ *   get:
+ *     security:
+ *     - bearerAuth: []
+ *     description: This endpoint get positions of a area.
+ *     summary: Get positios of area.
+ *     tags:
+ *       - Areas
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: Id of area to be consult
+ *        required: true
+ *        type: integer
+ *        example: 1
+ *     responses:
+ *       200:
+ *         description: OK.
+ *       401:
+ *         description: Unathorized.
+ *       403:
+ *         description: Forbidden.
+ *       500:
+ *         description: Internal server error.
+ */

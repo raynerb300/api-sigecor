@@ -31,9 +31,16 @@ export const URL = {
     getArea: '/areas/:id',
     createArea: '/areas',
     updateArea: '/areas/:id',
+    getAreaTypeCorrespondences: '/areas/:id/type-correspondences',
+    getAreaPositions: '/areas/:id/positions',
 
     // Rutas estados
     getState: '/states/:id',
     createState: '/states',
     updateState: '/states/:id',
+
+    // Ruras cargos
+    getPosition: '/positions/:id',
+    createPosition: '/positions',
+    updatePosition: '/positions/:id'
 }

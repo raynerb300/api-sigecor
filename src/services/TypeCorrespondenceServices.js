@@ -9,13 +9,7 @@ export async function getTypeCorrespondence(id){
     const typeCorrespondence = await TypeCorrespondence.findByPk(id, {
         attributes: { 
           exclude: ['created_at', 'updated_at', 'area_id'] 
-        },
-        include: [{
-            model: State,
-            attributes: {
-                exclude: ['created_at', 'updated_at', 'type_correspondence_id']
-            }
-        }]
+        }
     });
 
     if(!typeCorrespondence){

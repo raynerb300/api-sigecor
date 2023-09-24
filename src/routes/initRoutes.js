@@ -6,6 +6,7 @@ import routesPermission from './routes/Permission.js';
 import routesTypeCorrespondence from './routes/TypeCorrespondence.js';
 import routesArea from './routes/Area.js';
 import routesState from './routes/State.js';
+import routesPosition from './routes/Position.js';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ routesPermission(router);
 routesTypeCorrespondence(router);
 routesArea(router);
 routesState(router);
+routesPosition(router);
 
 export default router;
