@@ -12,22 +12,8 @@ export async function getAreas(){
 
     return await Area.findAll({
         attributes: { 
-            exclude: ['created_at', 'updated_at', 'manager_id', 'coordinator_id'] 
-        },
-        include: [{ 
-            model: Position, 
-            attributes: ['name'],
-            where: {
-                name: ['GERENTE', 'COORDINADOR'] 
-            },
-            include: [{
-                model: User,
-                attributes: ['names', 'last_names', 'type_document', 'nro_document'],
-                through: { 
-                    attributes: [] 
-                }
-            }]
-        }]
+            exclude: ['created_at', 'updated_at'] 
+        }
     });
 
 }
@@ -37,30 +23,60 @@ export async function getArea(id){
     const area = await Area.findByPk(id, {
         attributes: { 
           exclude: ['created_at', 'updated_at', 'manager_id','coordinator_id'] 
-        },
-        include: [ { 
-            model: Position, 
+        }
+    });
+
+    if(!area){
+        throw 'areaNotFound';
+    }
+
+    const members = await User.findAll({
+        attributes: ['names', 'last_names', 'type_document', 'nro_document', 'status'],
+        include: [{
+            model: Position,
             attributes: ['name'],
-            include: [{
-                model: User,
-                attributes: ['names', 'last_names', 'type_document', 'nro_document'],
-                through: { 
-                    attributes: [] 
-                }
-            }]
-        }, {
-            model: TypeCorrespondence,
-            attributes: { 
-                exclude: ['created_at', 'updated_at', 'area_id'] 
+            through: { attributes: [] },
+            where: {
+                area_id: area.dataValues.id
             }
         }]
     });
 
-    if(!(area)){
-        throw 'areaNotFound';
-    }
+    area.dataValues.members = members;
     
     return area;
+}
+
+export async function getAreaTypeCorrespondences(id){
+    const typeCorrespondence = await TypeCorrespondence.findAll({
+            attributes: { 
+                exclude: ['created_at', 'updated_at', 'area_id'] 
+            },
+            where: {
+                area_id: id
+            },
+            include: [{
+                model: State,
+                attributes: {
+                    exclude: ['created_at', 'updated_at', 'type_correspondence_id']
+                }
+            }]
+    });
+    
+    return typeCorrespondence;
+}
+
+export async function getAreaPositions(id){
+    const positions = await Position.findAll({
+        attributes: { 
+          exclude: ['created_at', 'updated_at', 'area_id'] 
+        },
+        where: {
+            area_id: id
+        }
+    });
+    
+    return positions;
 }
 
 export async function createArea(data){
