@@ -14,6 +14,7 @@ export const STATUS = (element) => {
         typeCorrespondenceNotFound: 404,
         areaNotFound: 404,
         stateNotFound: 404,
+        positionNotFound: 404,
         alreadyExistUsername: 409,
         alreadyExistEmail: 409,
         alreadyExistDocument: 409,
@@ -23,6 +24,7 @@ export const STATUS = (element) => {
         alreadyExistState: 409,
         alreadyExistStateOrder: 409,
         cantModifyStateSystem: 409,
+        alreadyExistPosition: 409,
         serverError: 500
     }
     return codes[element] ?? STATUS('serverError');
@@ -44,6 +46,7 @@ export const MESSAGE = (element) => {
         typeCorrespondenceNotFound: 'Tipo de correspondencia no encontrado.',
         areaNotFound: 'Area no encontrada.',
         stateNotFound: 'Estado no encontrado.',
+        positionNotFound: 'Cargo no encontrado.',
         alreadyExistUsername: 'El nombre de usuario ya se encuentra registrado.',
         alreadyExistEmail: 'El email ya se encuentra registrado.',
         alreadyExistDocument: 'El número de documento ya se encuentra registrado.',
@@ -52,6 +55,7 @@ export const MESSAGE = (element) => {
         alreadyExistArea: 'El nombre de área ya se encuentra registrado.',
         alreadyExistState: 'El nombre de estado ya se encuentra registrado en el tipo de correspondencia.',
         alreadyExistStateOrder: 'El orden del estado ya se encuentra registrado en el tipo de correspondencia.',
+        alreadyExistPosition: 'El nombre del cargo ya se encuentra registrado en el área.',
         cantModifyStateSystem: 'No se pueden modificar los estados base del sistema.',
         serverError: 'Error interno del servidor.'
     }

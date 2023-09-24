@@ -40,7 +40,7 @@ export const URL = {
     updateState: '/states/:id',
 
     // Ruras cargos
-    getPosition: '/positions/{id}',
+    getPosition: '/positions/:id',
     createPosition: '/positions',
-    updatePosition: '/positions/{id}'
+    updatePosition: '/positions/:id'
 }
