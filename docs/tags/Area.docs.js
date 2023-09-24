@@ -138,7 +138,7 @@
  *     parameters:
  *      - name: id
  *        in: path
- *        description: Id of area to be update
+ *        description: Id of area to be consult
  *        required: true
  *        type: integer
  *        example: 1
@@ -166,7 +166,7 @@
  *     parameters:
  *      - name: id
  *        in: path
- *        description: Id of area to be update
+ *        description: Id of area to be consult
  *        required: true
  *        type: integer
  *        example: 1
