@@ -39,8 +39,13 @@ export const URL = {
     createState: '/states',
     updateState: '/states/:id',
 
-    // Ruras cargos
+    // Rutas cargos
     getPosition: '/positions/:id',
     createPosition: '/positions',
-    updatePosition: '/positions/:id'
+    updatePosition: '/positions/:id',
+
+    // Rutas miembros
+    deleteMember: '/members',
+    addMember: '/members',
+    updateMember: '/members'
 }
