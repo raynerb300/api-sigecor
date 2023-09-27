@@ -31,3 +31,12 @@ User.belongsToMany(Position, {
         primaryKey: true
     }
 });
+
+Job.associate = function(models) {
+    Job.belongsTo(models.Position, {
+      foreignKey: {
+        name: 'position_id',
+        allowNull: true
+      }
+    });
+};

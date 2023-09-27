@@ -25,6 +25,8 @@ export const STATUS = (element) => {
         alreadyExistStateOrder: 409,
         cantModifyStateSystem: 409,
         alreadyExistPosition: 409,
+        userIsJob: 409,
+        userIsNotJob: 409,
         serverError: 500
     }
     return codes[element] ?? STATUS('serverError');
@@ -57,6 +59,8 @@ export const MESSAGE = (element) => {
         alreadyExistStateOrder: 'El orden del estado ya se encuentra registrado en el tipo de correspondencia.',
         alreadyExistPosition: 'El nombre del cargo ya se encuentra registrado en el área.',
         cantModifyStateSystem: 'No se pueden modificar los estados base del sistema.',
+        userIsJob: "El usuario ya tiene un cargo dentro del area.",
+        userIsNotJob: "El usuario no se encuentra trabajando en esa area.",
         serverError: 'Error interno del servidor.'
     }
     return codes[element] ?? MESSAGE('serverError')
